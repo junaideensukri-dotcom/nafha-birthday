@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Something Special 💖</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            color: white;
+            font-family: Arial;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 10px;
+            z-index: 2;
+        }
+
+        p {
+            margin: 5px;
+            z-index: 2;
+        }
+
+        video {
+            max-width: 90%;
+            height: 70vh;
+            border-radius: 15px;
+            margin-top: 10px;
+            z-index: 2;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #ff4d6d;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        button:hover {
+            background: #ff1f4b;
+        }
+
+        /* 💖 EMOJI FLOATING */
+        .emoji {
+            position: absolute;
+            bottom: -50px;
+            font-size: 24px;
+            animation: floatUp 6s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-110vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>💖 Just for You 💖</h1>
+    <p>💙May be this is not a special vedio..But this from my heart 💙</p>
+
+    <!-- 🎬 VIDEO -->
+    <video id="spcl" controls autoplay>
+        <source src="video/video.mp4" type="video/mp4">
+    </video>
+
+    <button onclick="goFinal()">Final Message 💌</button>
+
+    <!-- 💖 FLOATING EMOJIS -->
+    <script>
+        const emojis = ["🥹","🥺","🥰","😍","🤗","❤️‍🩹","🫂","💗"];
+
+        function createEmoji() {
+            const emoji = document.createElement("div");
+            emoji.classList.add("emoji");
+            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+            emoji.style.left = Math.random() * 100 + "vw";
+            emoji.style.fontSize = (20 + Math.random() * 20) + "px";
+            emoji.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+            document.body.appendChild(emoji);
+
+            setTimeout(() => {
+                emoji.remove();
+            }, 6000);
+        }
+
+        setInterval(createEmoji, 400);
+
+        function goFinal() {
+            window.location.href = "video.html";
+        }
+
+        // 🎯 AUTO REDIRECT
+        var vid = document.getElementById("spcl");
+
+        vid.onended = function() {
+            window.location.href = "video.html";
+        };
+    </script>
+
+</body>
+</html>

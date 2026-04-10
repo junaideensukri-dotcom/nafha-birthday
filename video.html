@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+    overflow-x: hidden;
+}
+
+.container {
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    font-size: 40px;
+    color: white;
+    text-shadow: 0 0 20px #ff1493;
+}
+
+/* CARD */
+.card {
+    max-width: 700px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    color: white;
+    line-height: 1.8;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+/* BUTTON */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    background: #ff1493;
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+/* FLOAT */
+.float {
+    position: absolute;
+    bottom: -50px;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    0% {transform: translateY(0); opacity:1;}
+    100% {transform: translateY(-120vh); opacity:0;}
+}
+
+/* FIREWORK CANVAS */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="container">
+
+<h1>🎉 HAPPY BIRTHDAY LOOSU 🎂</h1>
+
+<div class="card">
+
+<p>
+💖 You are one of the most kind-hearted and beautiful souls I have ever known.  
+The way you care for your friends and family is truly rare 🌸.
+</p>
+
+<p>
+🥺 I was once a lonely person, but you came into my life and everything changed 💙.  
+You became someone irreplaceable in my heart 💫.
+</p>
+
+<p>
+🎂 On this special day, I pray you get happiness 😊, success 🌟, and peace 🕊️.  
+May Allah bless you 🤲 with a beautiful future, good health 💖, and endless joy 🌈.
+</p>
+
+<p>
+💙 Always keep smiling because your smile means everything to me 😊✨
+</p>
+
+<!-- MUSIC BUTTON BELOW MESSAGE -->
+<button onclick="playMusic()">▶️ Play Music 💖</button>
+
+<audio id="music" loop>
+<source src="music/song2.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+</div>
+
+<script>
+
+/* MUSIC */
+function playMusic() {
+    document.getElementById("music").play();
+}
+
+/* FLOATING EMOJIS */
+const items = ["🎈","🎂","🎉","💖","✨","🎊","🌸"];
+
+function startFloat() {
+    setInterval(() => {
+        let el = document.createElement("div");
+        el.classList.add("float");
+        el.innerHTML = items[Math.floor(Math.random()*items.length)];
+        el.style.left = Math.random()*100 + "vw";
+        el.style.fontSize = (18 + Math.random()*20) + "px";
+        el.style.animationDuration = (4 + Math.random()*5) + "s";
+        document.body.appendChild(el);
+
+        setTimeout(()=>el.remove(),9000);
+    },300);
+}
+
+/* FIREWORKS */
+function startFireworks() {
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    function createFirework() {
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height / 2;
+
+        for(let i = 0; i < 40; i++){
+            particles.push({
+                x: x,
+                y: y,
+                angle: Math.random() * 2 * Math.PI,
+                speed: Math.random() * 5,
+                radius: 2,
+                alpha: 1
+            });
+        }
+    }
+
+    function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p, i) => {
+            p.x += Math.cos(p.angle) * p.speed;
+            p.y += Math.sin(p.angle) * p.speed;
+            p.alpha -= 0.01;
+
+            ctx.fillStyle = rgba(255,105,180,$);
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+            if(p.alpha <= 0) particles.splice(i, 1);
+        });
+
+        requestAnimationFrame(update);
+    }
+
+    setInterval(createFirework, 800);
+    update();
+}
+
+/* START EFFECTS */
+startFloat();
+startFireworks();
+
+</script>
+
+</body>
+</html>

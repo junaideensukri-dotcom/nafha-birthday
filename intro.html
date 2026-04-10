@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cinematic Intro 💙</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+
+    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #ff4d6d);
+    background-size: 400% 400%;
+    animation: bg 10s ease infinite;
+}
+
+@keyframes bg {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+/* GLASS CARD */
+.container {
+    width: 85%;
+    max-width: 600px;
+    padding: 40px 30px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
+}
+
+/* TEXT */
+#text {
+    font-size: 26px;
+    min-height: 80px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    text-shadow: 0 0 15px rgba(255,255,255,0.6);
+}
+
+/* BUTTONS */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+/* START */
+#startBtn {
+    background: #ff4d6d;
+    color: white;
+    box-shadow: 0 0 20px #ff4d6d;
+}
+
+#startBtn:hover {
+    transform: scale(1.05);
+    background: #ff1f4b;
+}
+
+/* NEXT */
+#nextBtn {
+    display: none;
+    background: #ffffff;
+    color: #ff4d6d;
+    font-weight: bold;
+}
+
+#nextBtn:hover {
+    transform: scale(1.08);
+}
+
+/* SKIP */
+#skipBtn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+#skipBtn:hover {
+    opacity: 1;
+}
+
+/* glow */
+.glow {
+    text-shadow: 0 0 10px #fff, 0 0 25px #ff4d6d;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+    <source src="music/song1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SKIP -->
+<button id="skipBtn" onclick="goNext()">Skip ➜</button>
+
+<div class="container">
+
+    <button id="startBtn" onclick="startExperience()">👆 Start Experience</button>
+
+    <p id="text"></p>
+
+    <button id="nextBtn" onclick="goNext()">Continue 💖</button>
+
+</div>
+
+<script>
+
+const messages = [
+    "Hey...",
+    "On this special day... I made something for you 💙",
+    "I know you might not expect this... but I wanted to do it ✨",
+    "This is not just a website... it’s a feeling 💖",
+    "Please stay a little longer... 💫",
+    "Everything here is written from my heart 💙"
+];
+
+let i = 0;
+const text = document.getElementById("text");
+const startBtn = document.getElementById("startBtn");
+const nextBtn = document.getElementById("nextBtn");
+const music = document.getElementById("bgMusic");
+
+function startExperience() {
+    music.play();
+    startBtn.style.display = "none";
+    showText();
+}
+
+function showText() {
+    if (i < messages.length) {
+
+        text.style.opacity = 0;
+
+        setTimeout(() => {
+            text.innerText = messages[i];
+            text.classList.add("glow");
+            text.style.opacity = 1;
+            i++;
+        }, 400);
+
+        setTimeout(showText, 2300);
+
+    } else {
+        nextBtn.style.display = "inline-block";
+    }
+}
+
+function goNext() {
+    window.location.href = "birthday.html";
+}
+
+</script>
+
+</body>
+</html>
